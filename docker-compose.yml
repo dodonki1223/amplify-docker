@@ -11,6 +11,8 @@ x-app: &app
     #   https://stackoverflow.com/questions/40538283/how-does-ash-files-are-structured
     - .dockerdev/.profile:/root/.profile:ro
     - .dockerdev/.ashrc:/root/.ashrc
+    - .dockerdev/.aws:/root/.aws
+    - .dockerdev/.amplify:/root/.amplify
     # :cachedはMacOSでのDocker環境の効率を高めるための設定
     #   コンテナとホスト間でファイルの状態に一貫性を持たせているが、この設定をONにする(コンテナとホスト間の一時的な不整合を許可する)と、
     #   ファイルシステムの状態をキャッシできるようになり、コンテナとMacOS間の不要な通信が回避され、パフォーマンスが向上する
@@ -38,7 +40,7 @@ services:
     environment:
       # コンテナのhistoryファイルをホストに保存し次回、立ち上げ時にも
       # 使用したコマンドを使えるようにする
-      HISTFILE: /app/log/.ash_history
+      HISTFILE: /app/.dockerdev/log/.ash_history
     stdin_open: true
     tty: true
     # 実行時に `/root/.profile` を読み込むようにし `/root/.ashrc` に記述されたエイリアスを使えるようにする
